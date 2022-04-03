@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#  Nest Configuration
+ip=<NEST HUB IP>
+dash=<HA Lovelace URL>
+
+# Grab existing volume value
+nestvolume=$(catt -d $ip status)
+nestvolume=${nestvolume:8}
+
+# Cast specific lovelace dashboard from HA
+/home/administrator/.local/bin/catt -d $ip stop
+/home/administrator/.local/bin/catt -d $ip volume 0
+/home/administrator/.local/bin/catt -d $ip cast_site $dash
+/home/administrator/.local/bin/catt -d $ip volume $nestvolume
